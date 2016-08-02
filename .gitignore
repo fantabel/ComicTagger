@@ -1,0 +1,9 @@
+*.cbr
+*.cbz
+source/
+tagged/
+toTrash/
+.classpath
+.project
+.settings
+target/
