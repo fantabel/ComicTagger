@@ -46,7 +46,8 @@ public class FileUtils {
 	}
 
 	public static boolean filenameContainsExcludedPatterns(final String fileName) {
-		String[] excluded = { "MACOSX", ".nfo", ".DS_Store", ".db", ".xml", ".SFV", ".txt", "#0001" };
+		String[] excluded = { "MACOSX", ".nfo", ".DS_Store", ".db", ".xml", ".SFV", ".txt", "#0001", ".par", ".pdf",
+				".ini" };
 		List<String> list = Arrays.asList(excluded);
 		return list.stream().anyMatch(s -> test(fileName, s));
 		// return fileName.contains("MACOSX") || fileName.contains(".nfo") ||

@@ -73,6 +73,13 @@ public class App {
 				}
 
 				int index = filename.indexOf(volume + issue);
+				if (index < 0 && filename.indexOf(volume + "." + issue) >= 0) {
+					throw new RuntimeException("Volume + issue malformed. Is there a dot?");
+
+				} else if (filename.indexOf(volume) > filename.indexOf(issue)) {
+					volume = "";
+					index = filename.indexOf(volume + issue);
+				}
 
 				String pre = filename.substring(0, index);
 				String post = filename.substring(pre.length() + volume.length() + issue.length(), filename.length());

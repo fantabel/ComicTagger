@@ -10,7 +10,7 @@ import com.fantabel.tagger.exception.TaggerException;
 public class Controller {
 
 	public static boolean showDeleteDialog(String comicName, Image img) {
-		Image i = img.getScaledInstance(-1, 400, Image.SCALE_SMOOTH);
+		Image i = img.getScaledInstance(-1, img.getHeight(null) < 400 ? img.getHeight(null) : 400, Image.SCALE_SMOOTH);
 		int n = JOptionPane.showConfirmDialog(null, "Do you wish to keep this image in the archive", comicName,
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(i));
 		return n == JOptionPane.YES_OPTION;
