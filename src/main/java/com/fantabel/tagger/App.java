@@ -19,9 +19,9 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fantabel.tagger.controller.Controller;
-import com.fantabel.tagger.exception.TaggerException;
-import com.fantabel.tagger.file.FileUtils;
-import com.fantabel.tagger.file.ZipUtils;
+import com.fantabel.tagger.model.exception.TaggerException;
+import com.fantabel.tagger.model.util.FileUtils;
+import com.fantabel.tagger.model.util.ZipUtils;
 
 /**
  * Hello world!

@@ -1,4 +1,4 @@
-package com.fantabel.tagger.file;
+package com.fantabel.tagger.model.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

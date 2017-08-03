@@ -63,7 +63,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.fantabel.tagger.App</mainClass>
+							<mainClass>com.fantabel.tagger.controller.Controller</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

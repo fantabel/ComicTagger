@@ -1,4 +1,4 @@
-package com.fantabel.tagger.exception;
+package com.fantabel.tagger.model.exception;
 
 public class TaggerException extends Exception {
 

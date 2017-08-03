@@ -4,10 +4,47 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
-import com.fantabel.tagger.exception.TaggerException;
+import com.fantabel.tagger.model.exception.TaggerException;
+import com.fantabel.tagger.view.TheScreen;
 
 public class Controller {
+
+	private TheScreen mainFrame;
+
+	public static void main(String[] args) {
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) { // If Nimbus is not available, you can set the
+			// GUI to another look and feel. }
+
+		}
+
+		// Schedule a job for event dispatch thread:
+		// creating and showing this application's GUI.
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Controller c = new Controller();
+				c.initScreen();
+			}
+		});
+	}
+
+	private void initScreen() {
+		mainFrame = TheScreen.createAndShowGUI();
+
+		mainFrame.setVisible(true);
+
+	}
 
 	public static boolean showDeleteDialog(String comicName, Image img) {
 		Image i = img.getScaledInstance(-1, img.getHeight(null) < 400 ? img.getHeight(null) : 400, Image.SCALE_SMOOTH);
