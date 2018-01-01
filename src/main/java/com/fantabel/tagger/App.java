@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,6 +98,8 @@ public class App {
 				boolean cover = true;
 				int regularWidth = FileUtils.getRegularWidth(tempDir);
 				System.out.println("RegularWidth : " + regularWidth);
+				File[] orderedFiles = tempDir.listFiles();
+				Arrays.sort(orderedFiles, Comparator.comparing(File::getName));
 				for (File page : tempDir.listFiles()) {
 					System.out.println(page.getName());
 					if (cover) {
