@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import com.fantabel.tagger.App;
 import com.fantabel.tagger.model.exception.TaggerException;
 import com.fantabel.tagger.view.TheScreen;
 
@@ -15,6 +16,7 @@ public class Controller {
 	private TheScreen mainFrame;
 
 	public static void main(String[] args) {
+		System.out.println("Moo!");
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -33,8 +35,10 @@ public class Controller {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Controller c = new Controller();
-				c.initScreen();
+				// Controller c = new Controller();
+				// c.initScreen();
+				App.go(args);
+				System.exit(0);
 			}
 		});
 	}

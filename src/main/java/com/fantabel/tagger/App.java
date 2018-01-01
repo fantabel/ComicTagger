@@ -29,10 +29,10 @@ import com.fantabel.tagger.model.util.ZipUtils;
  */
 public class App {
 
-	public static void main(String[] args) {
+	public static void go(String[] args) {
 		// TODO Filter arguments. Treat whole folder or single files
 		// TODO do not extract nfo files
-
+		System.out.println("Start of program");
 		Arguments arg = new Arguments(args);
 		File[] files = null;
 		BufferedImage img = null;
@@ -56,7 +56,7 @@ public class App {
 
 				String filename = tempDir.getName();
 				Pattern patternVolume = Pattern.compile("v\\p{Digit}{1,2}");
-				Pattern patternIssue = Pattern.compile("x\\p{Digit}{1,3}");
+				Pattern patternIssue = Pattern.compile("x\\p{Digit}{1,3}(-?\\p{Digit}{1,3})");
 
 				Matcher matcherVolume = patternVolume.matcher(filename);
 				Matcher matcherIssue = patternIssue.matcher(filename);
@@ -71,6 +71,8 @@ public class App {
 				if (matcherIssue.find()) {
 					issue = matcherIssue.group();
 				}
+
+				System.out.println(issue);
 
 				int index = filename.indexOf(volume + issue);
 				if (index < 0 && filename.indexOf(volume + "." + issue) >= 0) {
@@ -87,7 +89,7 @@ public class App {
 				if (!volume.equals("") || !issue.equals("")) {
 					pagename = pre + volume + issue + "$1$2" + post;
 				} else {
-					pagename = filename + ".$1$2";
+					pagename = filename + "$1$2";
 				}
 
 				int i = 0;
@@ -215,7 +217,7 @@ public class App {
 
 				}
 
-				ArrayList<File> listTemp = new ArrayList<File>();
+				ArrayList<File> listTemp = new ArrayList<>();
 				for (String s : params) {
 					File temp = new File(s);
 					if (temp.exists()) {
