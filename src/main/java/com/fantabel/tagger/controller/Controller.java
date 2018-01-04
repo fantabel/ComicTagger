@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.apache.log4j.Logger;
+
 import com.fantabel.tagger.App;
 import com.fantabel.tagger.model.exception.TaggerException;
 import com.fantabel.tagger.view.TheScreen;
@@ -14,9 +16,16 @@ import com.fantabel.tagger.view.TheScreen;
 public class Controller {
 
 	private TheScreen mainFrame;
+	final static Logger logger = Logger.getLogger(Controller.class);
 
 	public static void main(String[] args) {
-		System.out.println("Moo!");
+		logger.debug("Start of program");
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				logger.debug("End of program");
+			}
+		});
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {

@@ -19,6 +19,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.fantabel.tagger.controller.Controller;
 import com.fantabel.tagger.model.exception.TaggerException;
@@ -31,10 +32,12 @@ import com.fantabel.tagger.model.util.ZipUtils;
  */
 public class App {
 
+	final static Logger logger = Logger.getLogger(App.class);
+
 	public static void go(String[] args) {
 		// TODO Filter arguments. Treat whole folder or single files
 		// TODO do not extract nfo files
-		System.out.println("Start of program");
+
 		Arguments arg = new Arguments(args);
 		File[] files = null;
 		BufferedImage img = null;
