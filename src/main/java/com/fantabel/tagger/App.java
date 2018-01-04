@@ -103,7 +103,7 @@ public class App {
 				System.out.println("RegularWidth : " + regularWidth);
 				File[] orderedFiles = tempDir.listFiles();
 				Arrays.sort(orderedFiles, Comparator.comparing(File::getName));
-				for (File page : tempDir.listFiles()) {
+				for (File page : orderedFiles) {
 					System.out.println(page.getName());
 					if (cover) {
 						try {
