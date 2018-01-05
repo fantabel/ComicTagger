@@ -67,9 +67,12 @@ public class Controller {
 	}
 
 	public static boolean showCoverDialog(String comicName, Image img) throws TaggerException {
+		logger.debug("GetScaledInstance");
 		Image i = img.getScaledInstance(-1, 400, Image.SCALE_SMOOTH);
+		logger.debug("ShowConfirmDialog");
 		int n = JOptionPane.showConfirmDialog(null, "Is this a Cover?", comicName, JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE, new ImageIcon(i));
+
 		if (n == JOptionPane.CANCEL_OPTION)
 			throw new TaggerException("This should not be in comic.");
 		return n == JOptionPane.YES_OPTION;

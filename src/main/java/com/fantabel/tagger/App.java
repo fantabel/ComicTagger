@@ -37,16 +37,16 @@ public class App {
 	public static void go(String[] args) {
 		// TODO Filter arguments. Treat whole folder or single files
 		// TODO do not extract nfo files
-
+		logger.debug("Extracting arguments");
 		Arguments arg = new Arguments(args);
 		File[] files = null;
 		BufferedImage img = null;
 		files = arg.getFiles();
+		logger.debug("Found " + files.length + " files.");
 
 		for (File f : files) {
-			if (StringUtils.equals(FileUtils.getExtension(f.getName()), ".cbz")
-					|| StringUtils.equals(FileUtils.getExtension(f.getName()), ".cbr")) {
-				System.out.println("Processing : " + f.getName());
+			if (StringUtils.containsAny(FileUtils.getExtension(f.getName()), ".cbz", ".cbr")) {
+				logger.debug("Processing " + f.getName() + ".");
 				File tempDir = null;
 				if (StringUtils.equals(FileUtils.getExtension(f.getName()), ".cbz")) {
 					tempDir = ZipUtils.extractCbzTemp(f);
@@ -77,8 +77,6 @@ public class App {
 					issue = matcherIssue.group();
 				}
 
-				System.out.println(issue);
-
 				int index = filename.indexOf(volume + issue);
 				if (index < 0 && filename.indexOf(volume + "." + issue) >= 0) {
 					throw new RuntimeException("Volume + issue malformed. Is there a dot?");
@@ -90,25 +88,34 @@ public class App {
 
 				String pre = filename.substring(0, index);
 				String post = filename.substring(pre.length() + volume.length() + issue.length(), filename.length());
-				System.out.println(pre + " " + post + " " + volume + " " + issue);
+
+				logger.debug(pre + " " + post + " " + volume + " " + issue);
+
 				if (!volume.equals("") || !issue.equals("")) {
 					pagename = pre + volume + issue + "$1$2" + post;
+
 				} else {
 					pagename = filename + "$1$2";
+
 				}
 
 				int i = 0;
 				boolean cover = true;
 				int regularWidth = FileUtils.getRegularWidth(tempDir);
-				System.out.println("RegularWidth : " + regularWidth);
+				logger.debug("RegularWidth : " + regularWidth);
 				File[] orderedFiles = tempDir.listFiles();
 				Arrays.sort(orderedFiles, Comparator.comparing(File::getName));
+
 				for (File page : orderedFiles) {
-					System.out.println(page.getName());
+					logger.debug(page.getName());
 					if (cover) {
+						logger.debug("Try");
 						try {
+							logger.debug("Reading Image");
 							img = ImageIO.read(page);
 							try {
+								logger.debug("Show Cover Dialog");
+
 								if (!Controller.showCoverDialog(filename, img)) {
 									cover = false;
 									i = 1;
@@ -121,6 +128,7 @@ public class App {
 							e.printStackTrace();
 						}
 					}
+
 					String format = tempDir.listFiles().length > 99 ? "%03d" : "%02d";
 					String pageNumber = String.format(format, i++);
 					String pageNumber2 = "";

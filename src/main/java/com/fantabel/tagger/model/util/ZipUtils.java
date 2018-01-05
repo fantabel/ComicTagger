@@ -16,12 +16,17 @@ import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import com.github.junrar.Archive;
 import com.github.junrar.exception.RarException;
 import com.github.junrar.impl.FileVolumeManager;
 import com.github.junrar.rarfile.FileHeader;
 
 public class ZipUtils {
+
+	final static Logger logger = Logger.getLogger(ZipUtils.class);
+
 	public static String compressToCbz(File dir) {
 		String newFilename = null;
 		try {
@@ -80,7 +85,7 @@ public class ZipUtils {
 	public static File createTempFolder(File f) {
 		File tempDir = new File(FileUtils.removeExtension(f.getName()));
 		if (tempDir.exists()) {
-			System.out.println("temporary file already exists");
+			logger.debug("temporary file already exists, cleaning directory");
 			FileUtils.deleteFolder(tempDir);
 		}
 
@@ -113,7 +118,6 @@ public class ZipUtils {
 						continue;
 					}
 					if (!fh.isDirectory()) {
-						System.out.println(fh.getFileNameString());
 						File out = new File(tempDir.getName() + File.separator + fh.getFileNameString().trim());
 						FileOutputStream os = new FileOutputStream(out);
 						a.extractFile(fh, os);
@@ -152,7 +156,7 @@ public class ZipUtils {
 					ze = zis.getNextEntry();
 					continue;
 				}
-				System.out.println(fileName);
+
 				if (fileName.contains(File.separator)) {
 					fileName = fileName.substring(fileName.lastIndexOf(File.separator));
 				}
