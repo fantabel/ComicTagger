@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.apache.log4j.Logger;
+
 import com.fantabel.tagger.App;
 import com.fantabel.tagger.model.exception.TaggerException;
 import com.fantabel.tagger.view.TheScreen;
@@ -14,9 +16,16 @@ import com.fantabel.tagger.view.TheScreen;
 public class Controller {
 
 	private TheScreen mainFrame;
+	final static Logger logger = Logger.getLogger(Controller.class);
 
 	public static void main(String[] args) {
-		System.out.println("Moo!");
+		logger.debug("Start of program");
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				logger.debug("End of program");
+			}
+		});
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -58,9 +67,12 @@ public class Controller {
 	}
 
 	public static boolean showCoverDialog(String comicName, Image img) throws TaggerException {
+		logger.debug("GetScaledInstance");
 		Image i = img.getScaledInstance(-1, 400, Image.SCALE_SMOOTH);
+		logger.debug("ShowConfirmDialog");
 		int n = JOptionPane.showConfirmDialog(null, "Is this a Cover?", comicName, JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE, new ImageIcon(i));
+
 		if (n == JOptionPane.CANCEL_OPTION)
 			throw new TaggerException("This should not be in comic.");
 		return n == JOptionPane.YES_OPTION;

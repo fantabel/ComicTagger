@@ -1,5 +1,6 @@
 *.cbr
 *.cbz
+*.log
 source/
 tagged/
 toTrash/
